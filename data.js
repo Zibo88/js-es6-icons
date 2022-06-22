@@ -1,175 +1,232 @@
-const allCategory = [
+const allIcons = [
 	{
-		name: 'CAT',
+		name: 'cat',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-cat"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'CROW',
+		name: 'crow',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-crow"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'DOG',
+		name: 'dog',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-dog"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'DOVE',
+		name: 'dove',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-dove"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'DRAGON',
+		name: 'dragon',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-dragon"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'HORSE',
+		name: 'horse',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-horse"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'HIPPO',
+		name: 'hippo',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-hippo"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'FISH',
+		name: 'fish',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange',
-		icon: '<i class="fa-solid fa-fish"></i>'
+		color: 'orange'
 	},
 	{
-		name: 'CARROT	',
+		name: 'carrot',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green',
-		icon: '<i class="fa-solid fa-carrot"></i>'
+		color: 'green'
 	},
 	{
-		name: 'APPLE-ALT',
+		name: 'apple-alt',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green',
-		icon: '<i class="fa-solid fa-apple-whole"></i>'
+		color: 'green'
 	},
 	{
-		name: 'LEMON',
+		name: 'lemon',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green',
-		icon: '<i class="fa-solid fa-lemon"></i>'
+		color: 'green'
 	},
 	{
-		name: 'PEPPER-HOT',
+		name: 'pepper-hot',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green',
-		icon: '<i class="fa-solid fa-pepper-hot"></i>'
+		color: 'green'
 	},
 	{
-		name: 'USER-RESTAURANT',
+		name: 'user-astronaut',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue',
-		icon: '<i class="fa-solid fa-user-astronaut"></i>'
+		color: 'blue'
 	},
 	{
-		name: 'USER-ASTRONAUT',
+		name: 'user-graduate',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue',
-		icon: '<i class="fa-solid fa-user-graduate"></i>'
+		color: 'blue'
 	},
 	{
-		name: 'USER-NINJA',
+		name: 'user-ninja',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue',
-		icon: '<i class="fa-solid fa-user-ninja"></i>'
+		color: 'blue'
 	},
 	{
-		name: 'USER-SECRET',
+		name: 'user-secret',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue',
-		icon: '<i class="fa-solid fa-user-secret"></i>'
+		color: 'blue'
 	}
 ];
 
 
-
-// Categorizziamo i diversi elementi di allCategory in base ai valori selezionati： All, Animal, Vegetable e User
-// Prendiamo fuori tutti i type animal per inserirli in un array 
-const onlyAnimal = allCategory.filter((elementAnimal) => {
-	const copyElement = {...elementAnimal}
-	return copyElement.type === 'animal';
+// GENERATORE COLORE RANDOM PER OGNI ELEMENTO DELLE CARDS 
+allIcons.forEach((element) => {
+	element.color = generateColor();
 });
 
-console.log(onlyAnimal);
+// Richiamo il mio elemento HTML a cui voglio inserire tutte le mie cards
+const iconContainer = document.querySelector('.js-all-card'); 
 
-// Prendiamo fuori tutti i type vegetable per inserirli in un array 
-const onlyVegetable = allCategory.filter((elementVegetable) => {
-	const copyElement = {...elementVegetable}
-	return copyElement.type === 'vegetable';
-});
+// FUNCTION PER POPOLARE IL DOM
+printCards(allIcons, iconContainer);
 
-console.log(onlyVegetable);
-// Prendiamo fuori tutti i type user per inserirli in un array 
-const onlyUser = allCategory.filter((elementUser) => {
-	const copyElement = {...elementUser}
-	return copyElement.type === 'user';
-});
+// POPOLARE LE OPTION NELLA SELECT 
+// Appendere a #category le optin (una per ogni categoria) 
+// Mi serve un array che contenga le categorie non ripetute
+const iconTypes = getIconType(allIcons);
+printTypeOptions(iconTypes);
 
-console.log(onlyUser);
-console.log(allCategory);
 
-// Creiamo la variante per rende disponibili al display solo gli elementi della categoria scelta dall'utente
-const userChooseCategory = document.querySelector('#category').value;
+// ----------------------
+//     EVENT CHANGE
+// ----------------------
+// CATEGORIZZO LE CARDS DA STAMPARE IN BASE ALLA SCELTA DELL'UTENTE 
+const selectCategory = document.querySelector('#category'); 
+// Reset dei valori a All per ogni volta che l'utente fa refresh della pagina
+selectCategory.value = 'all';
 
-let showedCard;
+selectCategory.addEventListener('change',
+	function() {
 
-console.log(userChooseCategory);
-if(userChooseCategory === 'all') {
-	showedCard = allCategory;
-} else if(userChooseCategory === 'animal') {
-	showedCard = onlyAnimal;
-} else if(userChooseCategory === 'vegetable') {
-	showedCard = onlyVegetable;
-} else if(userChooseCategory === 'user') {
-	showedCard = onlyUser;
+		// Rendo leggibile la scelta dell'utente
+		const userValue = this.value;
+		// Svuoto il popolamento delle pagine ogni volta che l'utente cambia la sua categoria
+		iconContainer.innerHTML = '';
+
+		// Se nei dati dell'oggetto non e' compreso il type ALL allora 
+		if(userValue !== 'all') {
+			const filteredIcons = allIcons.filter((element) => {
+				return element.type === userValue;
+			});
+
+			// Popolazione DOM
+			printCards(filteredIcons, iconContainer);
+		} else {
+			// Popolazione DOM
+			printCards(allIcons, iconContainer); 
+		}
+	}
+);
+
+
+// --------------------
+// 		FUNCTION
+// --------------------
+// Popolazione DOM
+function printCards(array, container) {
+	array.forEach((element) => { 
+		const {name, prefix, type, family, color} = element; 
+	
+		const newCard = `
+		<div class="card flex" style="color: ${color}">
+			<i class="${family} ${prefix}${name}"></i>
+			<span>${name}</span>
+		</div>
+		`
+		container.innerHTML += newCard; 
+	}); 
 };
 
-console.log('categoria', showedCard);
+// Generatore colore casuale
+function generateColor() {
+	let color = '#';
+	
+	// Generiamo una stringa che sia della stessa lunghezza di: #1b2b3a (esadecimale) 
+	// Variante a stringa con tutti i numeri a nostra disposizione
+	const symbols = '0123456789abcdef';
+	
+	for(let i = 0; i < 6; i++) {
+		const randomIndex = getRndInteger(0, symbols.length - 1);
+
+		const randomSymbol = symbols[randomIndex];
+
+		color += randomSymbol;
+	}
+	return color;
+};
+
+
+// Generatore numero random
+function getRndInteger(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) ) + min;
+};
+
+
+// A partire dall'array di icone genera un array di typpe di icone senza duplicati
+function getIconType(iconsArray) {
+	const types = [];
+	// Per ogni elemento dell'array appendo il type a types solo se non e' gia' compreso.
+	iconsArray.forEach((element) => {
+		if(!types.includes(element.type)) {
+			types.push(element.type);
+		}
+	});
+	return types;
+};
+
+// Stampa le option nella selec per filtrare le icone per tipo
+function printTypeOptions(typesArray) {
+	let typeSelect = document.querySelector('#category');
+	typesArray.forEach((element) => {
+		const newOption = `
+		<option value="${element}">${element}</option>
+		`
+		typeSelect.innerHTML += newOption;
+	});
+
+}
